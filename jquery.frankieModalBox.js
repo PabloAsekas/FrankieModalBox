@@ -36,7 +36,9 @@
                 'filter' : 'progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=\'#8c000000\',endColorstr=\'#8c000000\')'
             });
 
-            $('body').append(overlay);
+            if (!$('#__frankie_overlay').length) { //it just append the overlay if it doesn't exists before
+                $('body').append(overlay);
+            }
 
             options = $.extend(defaults, options);
 
@@ -61,16 +63,31 @@
 
             		$('#__frankie_overlay').fadeIn('fast');
 
-            		$(modalId).css({
-            			'display' : 'block',
-            			'position' : 'fixed',
-            			'opacity' : 0,
-            			'z-index': 99999,
-            			'left' : 50 + '%',
-            			'margin-left' : - (modal_width/2) + 'px',
-            			'top' : 50 + '%',
-                        'margin-top' : - (modal_height/2) + 'px'
-            		});
+            		if (modal_height < $(window).height()) {
+                        $(modalId).css({
+                            'display' : 'block',
+                            'position' : 'fixed',
+                            'opacity' : 0,
+                            'z-index': 99999,
+                            'left' : 50 + '%',
+                            'margin-left' : - (modal_width/2) + 'px',
+                            'top' : 50 + '%',
+                            'margin-top' : - (modal_height/2) + 'px'
+                        });
+                    } else {
+                        $(modalId).css({
+                            'display' : 'block',
+                            'position' : 'fixed',
+                            'height' : '90%',
+                            'overflow-y' : 'scroll',
+                            'opacity' : 0,
+                            'z-index': 99999,
+                            'left' : 50 + '%',
+                            'margin-left' : - (modal_width/2) + 'px',
+                            'top' : 5 + '%',
+                            //'margin-top' : - (modal_height/2) + 'px'
+                        });
+                    }
 
             		$(modalId).fadeTo(200,1);
 
